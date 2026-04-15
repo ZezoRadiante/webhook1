@@ -4,7 +4,7 @@ const axios = require('axios');
 const app = express();
 app.use(express.json());
 
-// ✅ SEUS DADOS JÁ CONFIGURADOS
+// ✅ SEUS DADOS
 const PIXEL_ID = '26134771486222670';
 const ACCESS_TOKEN = 'EAAN9cc8y8xMBRAQruj2FqmuidUZCN78IOR7cwUKrDMeekZBN3YDHsFaRMdjzNUslZADbGZBX7AfHdPFF3vYBoONjQ1ZBivUa5t0SBuftuQni6qSYmYepmZAZC85hd7ejAGkOqIJJc2VmEpJn1bEpwCWPFoUnzSdav1uYJChZBuHh9nzp0t1fRIyG49m04RoqpTyleQZDZD';
 
@@ -15,7 +15,7 @@ app.post('/webhook', async (req, res) => {
 
     console.log('📥 Webhook recebido:', JSON.stringify(data, null, 2));
 
-    // 🔎 tenta pegar o fbc de vários lugares possíveis
+    // 🔎 pega fbc
     const fbc =
       data.fbc ||
       data.metadata?.fbc ||
@@ -23,7 +23,7 @@ app.post('/webhook', async (req, res) => {
       data.custom_data?.fbc ||
       null;
 
-    // 💰 valor da compra
+    // 💰 valor
     const value =
       data.value ||
       data.amount ||
@@ -35,7 +35,7 @@ app.post('/webhook', async (req, res) => {
       return res.sendStatus(200);
     }
 
-    // 🚀 ENVIA PRO META (CAPI)
+    // 🚀 ENVIO PRO META
     const response = await axios.post(
       `https://graph.facebook.com/v18.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`,
       {
@@ -56,8 +56,7 @@ app.post('/webhook', async (req, res) => {
       }
     );
 
-    console.log('✅ Purchase enviado com fbc:', fbc);
-    console.log('📊 Resposta Meta:', response.data);
+    console.log('✅ Purchase enviado:', response.data);
 
     res.sendStatus(200);
 
@@ -67,4 +66,16 @@ app.post('/webhook', async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log('🚀 Servidor rodando na porta 3000'));
+
+// 🔥 ROTA PRA TESTE (IMPORTANTE)
+app.get('/', (req, res) => {
+  res.send('Servidor rodando 🚀');
+});
+
+
+// ✅ CORREÇÃO IMPORTANTE PRO RENDER
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log('🚀 Servidor rodando na porta', PORT);
+});
