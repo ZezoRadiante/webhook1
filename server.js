@@ -5,8 +5,8 @@ const app = express();
 app.use(express.json());
 
 // ✅ SEUS DADOS
-const PIXEL_ID = process.env.PIXEL_ID;
-const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+const PIXEL_ID = '26134771486222670';
+const ACCESS_TOKEN = 'EAAN9cc8y8xMBRAQruj2FqmuidUZCN78IOR7cwUKrDMeekZBN3YDHsFaRMdjzNUslZADbGZBX7AfHdPFF3vYBoONjQ1ZBivUa5t0SBuftuQni6qSYmYepmZAZC85hd7ejAGkOqIJJc2VmEpJn1bEpwCWPFoUnzSdav1uYJChZBuHh9nzp0t1fRIyG49m04RoqpTyleQZDZD';
 
 // 🔥 WEBHOOK
 app.post('/webhook', async (req, res) => {
